@@ -10,12 +10,12 @@ from .logistic_filters import StockFilter
 class ProductViewSet(ModelViewSet):
     queryset = Product.objects.all()
     serializer_class = ProductSerializer
+    filter_backends = [SearchFilter]
     search_fields = ['title', 'description']
 
 
 class StockViewSet(ModelViewSet):
     queryset = Stock.objects.all()
     serializer_class = StockSerializer
-    # параметры фильтрации
-    filter_backends = [DjangoFilterBackend, SearchFilter]
-    filter_class = StockFilter
+    filter_backends = [DjangoFilterBackend]
+    filterset_fields = ['products']
